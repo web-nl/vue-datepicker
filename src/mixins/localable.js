@@ -31,7 +31,10 @@ export default Vue.extend({
         properties.every(property => DEFAULT_LOCALE_PROPERTIES.includes(property));
     },
     getLocale (lang) {
-      return this.isValidLocale(lang) ? lang : locales[lang] || this.getLocale(this.getDefaultLang());
+      if(this.isValidLocale(lang)) {
+        return lang;
+      }
+      return locales[lang] || (locales[this.getDefaultLang()] || locales['en']);
     },
   },
 });
